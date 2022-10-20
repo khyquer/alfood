@@ -1,4 +1,5 @@
 import {
+	Button,
 	Paper,
 	Table,
 	TableBody,
@@ -13,10 +14,12 @@ import { useEffect, useState } from 'react'
 import IRestaurante from '../../interfaces/IRestaurante'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const AdministracaoRestaurantes = () => {
 	const [restaurantes, setRestaurantes] = useState<IRestaurante[]>([])
+
+	const navigate = useNavigate()
 
 	useEffect(() => {
 		axios
@@ -38,6 +41,10 @@ const AdministracaoRestaurantes = () => {
 			})
 	}
 
+	const editarRestaurante = (id: number) => {
+		navigate(`/admin/restaurantes/${id}`)
+	}
+
 	return (
 		<TableContainer component={Paper}>
 			<Table>
@@ -56,12 +63,19 @@ const AdministracaoRestaurantes = () => {
 							</TableCell>
 							<TableCell>{row.nome}</TableCell>
 							<TableCell>
-								<Link to={`/admin/restaurantes/${row.id}`}>
-									<EditIcon>edit</EditIcon>
-								</Link>
+								<Button
+									key={row.id}
+									onClick={() => editarRestaurante(row.id)}
+								>
+									<EditIcon>edit</EditIcon> Editar
+								</Button>
 							</TableCell>
 							<TableCell>
-								<DeleteIcon key={row.id} onClick={()=> deleteRestaurante(row.id)}>edit</DeleteIcon>
+								<Button
+									key={row.id}
+									onClick={() => deleteRestaurante(row.id)}>
+									<DeleteIcon>edit</DeleteIcon> Excluir
+								</Button>
 							</TableCell>
 						</TableRow>
 					))}
