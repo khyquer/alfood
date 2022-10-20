@@ -1,5 +1,5 @@
 import { Button, TextField } from '@mui/material'
-import axios from 'axios'
+
 import { useEffect, useState } from 'react'
 import http from '../../http'
 import IRestaurante from '../../interfaces/IRestaurante'
@@ -20,7 +20,6 @@ const ListaRestaurantes = () => {
 			const regex = new RegExp(buscaRestaurante, 'i')
 			return regex.test(restaurante.nome)
 		}))
-		console.log(temp)
 		setRestaurantes(temp)
 	}
 
