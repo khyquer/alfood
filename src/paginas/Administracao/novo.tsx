@@ -1,17 +1,18 @@
 import { Box, Button, TextField, Typography } from '@mui/material'
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import http from '../../http'
 import IRestaurante from '../../interfaces/IRestaurante'
 
 const AdministracaoNovo = () => {
 	const params = useParams()
+	const navigate = useNavigate()
 
 	useEffect(() => {
 		if (params.id) {
-			axios
+			http
 				.get<IRestaurante>(
-					`http://localhost:8000/api/v2/restaurantes/${params.id}/`
+					`/v2/restaurantes/${params.id}/`
 				)
 				.then((resposta) => {
 					setNomeRestaurante(resposta.data.nome)
@@ -26,10 +27,10 @@ const AdministracaoNovo = () => {
 
 	const aoSubmeterForm = (evento: React.FormEvent<HTMLFormElement>) => {
 		evento.preventDefault()
-
-		if (params.id) {
-			axios
-				.post('http://localhost:8000/api/v2/restaurantes/', {
+		console.log(params.id)
+		if (!params.id) {
+			http
+				.post('/v2/restaurantes/', {
 					nome: nomeRestaurante,
 				})
 				.then(() => {
@@ -39,8 +40,8 @@ const AdministracaoNovo = () => {
 					console.log(erro)
 				})
 		} else {
-			axios
-				.put(`http://localhost:8000/api/v2/restaurantes/${params.id}`, {
+			http
+				.put(`/v2/restaurantes/${params.id}/`, {
 					nome: nomeRestaurante,
 				})
 				.then(() => {
@@ -73,6 +74,9 @@ const AdministracaoNovo = () => {
 				/>
 				<Button sx={{marginTop: '20px'}} type='submit' variant='contained' fullWidth>
 					Salvar
+				</Button>
+				<Button onClick={() => navigate('/admin/restaurantes')}>
+					Voltar
 				</Button>
 			</Box>
 		</Box>

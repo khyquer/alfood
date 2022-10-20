@@ -14,7 +14,7 @@ import { useEffect, useState } from 'react'
 import IRestaurante from '../../interfaces/IRestaurante'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const AdministracaoRestaurantes = () => {
 	const [restaurantes, setRestaurantes] = useState<IRestaurante[]>([])
