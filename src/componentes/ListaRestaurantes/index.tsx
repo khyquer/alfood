@@ -1,6 +1,7 @@
 import { Button, TextField } from '@mui/material'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import http from '../../http'
 import IRestaurante from '../../interfaces/IRestaurante'
 import style from './ListaRestaurantes.module.scss'
 import Restaurante from './Restaurante'
@@ -24,8 +25,8 @@ const ListaRestaurantes = () => {
 	}
 
 	useEffect(() => {
-		axios
-			.get('http://localhost:8000/api/v1/restaurantes/')
+		http
+			.get('/v1/restaurantes/')
 			.then((resposta) => {
 				setRestaurantes(resposta.data.results)
 			})

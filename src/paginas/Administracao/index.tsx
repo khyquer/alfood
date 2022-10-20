@@ -15,6 +15,7 @@ import IRestaurante from '../../interfaces/IRestaurante'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { useNavigate } from 'react-router-dom'
+import http from '../../http'
 
 const AdministracaoRestaurantes = () => {
 	const [restaurantes, setRestaurantes] = useState<IRestaurante[]>([])
@@ -22,8 +23,8 @@ const AdministracaoRestaurantes = () => {
 	const navigate = useNavigate()
 
 	useEffect(() => {
-		axios
-			.get<IRestaurante[]>('http://localhost:8000/api/v2/restaurantes/')
+		http
+			.get<IRestaurante[]>('/v2/restaurantes/')
 			.then((resposta) => {
 				console.log(resposta.data)
 				setRestaurantes(resposta.data)
@@ -34,8 +35,8 @@ const AdministracaoRestaurantes = () => {
 	}, [restaurantes])
 
 	const deleteRestaurante = (id: number) => {
-		axios
-			.delete(`http://localhost:8000/api/v2/restaurantes/${id}/`)
+		http
+			.delete(`/v2/restaurantes/${id}/`)
 			.catch((erro) => {
 				console.log(erro)
 			})
