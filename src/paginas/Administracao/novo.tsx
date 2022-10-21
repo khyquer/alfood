@@ -1,9 +1,4 @@
-import {
-	Box,
-	Button,
-	TextField,
-	Typography,
-} from '@mui/material'
+import { Box, Button, TextField, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import http from '../../http'

@@ -19,6 +19,9 @@ const PaginaBase = () => {
 					<Toolbar>
 						<Typography>Administração</Typography>
 						<Box>
+							<Link component={RouterLink} to='/'>
+								<Button sx={{my: 2, color: 'white'}}>Home</Button>
+							</Link>
 							<Link component={RouterLink} to='/admin/restaurantes'>
 								<Button sx={{my: 2, color: 'white'}}>Restaurantes</Button>
 							</Link>

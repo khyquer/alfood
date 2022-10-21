@@ -22,7 +22,6 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import { useNavigate } from 'react-router-dom'
 import http from '../../../http'
 
-
 const AdministracaoPratos = () => {
 	const [pratos, setPratos] = useState<IPrato[]>([])
 
@@ -118,6 +117,9 @@ const AdministracaoPratos = () => {
 						<TableRow>
 							<TableCell>Id</TableCell>
 							<TableCell>Nome</TableCell>
+							<TableCell>Descrição</TableCell>
+							<TableCell>Tag</TableCell>
+							<TableCell>Imagem</TableCell>
 							<TableCell>Ações</TableCell>
 						</TableRow>
 					</TableHead>
@@ -128,21 +130,27 @@ const AdministracaoPratos = () => {
 									{row.id}
 								</TableCell>
 								<TableCell>{row.nome}</TableCell>
+								<TableCell>{row.descricao}</TableCell>
+								<TableCell>{row.tag}</TableCell>
+								<TableCell>
+									<a
+										href={row.imagem}
+										rel='noreferrer'
+										target='_blank'>
+										Abrir
+									</a>
+								</TableCell>
 								<TableCell>
 									<Button
 										key={row.id}
-										onClick={() =>
-											editarPrato(row.id)
-										}>
+										onClick={() => editarPrato(row.id)}>
 										<EditIcon>edit</EditIcon> Editar
 									</Button>
 								</TableCell>
 								<TableCell>
 									<Button
 										key={row.id}
-										onClick={() =>
-											deletePrato(row.id)
-										}>
+										onClick={() => deletePrato(row.id)}>
 										<DeleteIcon>edit</DeleteIcon> Excluir
 									</Button>
 								</TableCell>
