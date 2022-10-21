@@ -1,12 +1,10 @@
 import {
-	AppBar,
 	Paper,
 	Box,
 	Button,
 	FormControl,
 	InputLabel,
 	MenuItem,
-	Link,
 	Select,
 	Table,
 	TableBody,
@@ -15,9 +13,6 @@ import {
 	TableHead,
 	TableRow,
 	TextField,
-	Typography,
-	Container,
-	Toolbar,
 } from '@mui/material'
 
 import { useEffect, useState } from 'react'
@@ -27,10 +22,6 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import { useNavigate } from 'react-router-dom'
 import http from '../../http'
 
-interface IParametrosBusca {
-	ordering?: string
-	search?: string
-}
 
 const AdministracaoRestaurantes = () => {
 	const [restaurantes, setRestaurantes] = useState<IRestaurante[]>([])
@@ -87,131 +78,80 @@ const AdministracaoRestaurantes = () => {
 	}
 
 	return (
-		<>
-			<AppBar position='static'>
-				<Container maxWidth='xl'>
-					<Toolbar>
-						<Typography variant='h6'>Administração</Typography>
-						<Box sx={{ display: 'flex', flexGrow: 1 }}>
-							<Link>
-								<Button
-									onClick={() => navigate('/restaurantes')}
-									sx={{ my: 2, color: 'white' }}>
-									Voltar
-								</Button>
-							</Link>
-							<Link>
-								<Button
-									sx={{ my: 2, color: 'white' }}
-									onClick={novoRestaurante}>
-									Novo
-								</Button>
-							</Link>
-						</Box>
-					</Toolbar>
-				</Container>
-			</AppBar>
-			<Box>
-				<Container maxWidth='lg' sx={{ mt: 1 }}>
-					<Paper>
-						<Box>
-							<section>
-								<Box>
-									<TextField
-										id='standard-basic'
-										label='Pesquisar Restaurante'
-										variant='standard'
-										value={buscaRestaurante}
-										onChange={(e) =>
-											setBuscaRestaurante(e.target.value)
-										}
-									/>
+		<Box>
+			<section>
+				<Box>
+					<TextField
+						id='standard-basic'
+						label='Pesquisar Restaurante'
+						variant='standard'
+						value={buscaRestaurante}
+						onChange={(e) => setBuscaRestaurante(e.target.value)}
+					/>
 
+					<Button
+						variant='contained'
+						onClick={onCLickButtonBbuscarRestaurante}>
+						Buscar
+					</Button>
+				</Box>
+
+				<FormControl>
+					<InputLabel id='demo-simple-select-label'>
+						Ordenar por
+					</InputLabel>
+					<Select
+						labelId='demo-simple-select-label'
+						id='demo-simple-select'
+						label='Ordenar por'
+						value={ordenador}
+						sx={{ width: '200px' }}
+						onChange={(e) => setOrdenador(e.target.value)}>
+						<MenuItem value={'id'}>Código</MenuItem>
+						<MenuItem value={'nome'}>Nome</MenuItem>
+					</Select>
+				</FormControl>
+			</section>
+			<TableContainer component={Paper}>
+				<Table>
+					<TableHead>
+						<TableRow>
+							<TableCell>Id</TableCell>
+							<TableCell>Nome</TableCell>
+							<TableCell>Ações</TableCell>
+						</TableRow>
+					</TableHead>
+					<TableBody>
+						{restaurantes?.map((row) => (
+							<TableRow key={row.id}>
+								<TableCell component='th' scope='row'>
+									{row.id}
+								</TableCell>
+								<TableCell>{row.nome}</TableCell>
+								<TableCell>
 									<Button
-										variant='contained'
-										onClick={
-											onCLickButtonBbuscarRestaurante
+										key={row.id}
+										onClick={() =>
+											editarRestaurante(row.id)
 										}>
-										Buscar
+										<EditIcon>edit</EditIcon> Editar
 									</Button>
-								</Box>
-
-								<FormControl>
-									<InputLabel id='demo-simple-select-label'>
-										Ordenar por
-									</InputLabel>
-									<Select
-										labelId='demo-simple-select-label'
-										id='demo-simple-select'
-										label='Ordenar por'
-										value={ordenador}
-										sx={{ width: '200px' }}
-										onChange={(e) =>
-											setOrdenador(e.target.value)
+								</TableCell>
+								<TableCell>
+									<Button
+										key={row.id}
+										onClick={() =>
+											deleteRestaurante(row.id)
 										}>
-										<MenuItem value={'id'}>Código</MenuItem>
-										<MenuItem value={'nome'}>Nome</MenuItem>
-									</Select>
-								</FormControl>
-							</section>
-							<TableContainer component={Paper}>
-								<Table>
-									<TableHead>
-										<TableRow>
-											<TableCell>Id</TableCell>
-											<TableCell>Nome</TableCell>
-											<TableCell>Ações</TableCell>
-										</TableRow>
-									</TableHead>
-									<TableBody>
-										{restaurantes?.map((row) => (
-											<TableRow key={row.id}>
-												<TableCell
-													component='th'
-													scope='row'>
-													{row.id}
-												</TableCell>
-												<TableCell>
-													{row.nome}
-												</TableCell>
-												<TableCell>
-													<Button
-														key={row.id}
-														onClick={() =>
-															editarRestaurante(
-																row.id
-															)
-														}>
-														<EditIcon>
-															edit
-														</EditIcon>{' '}
-														Editar
-													</Button>
-												</TableCell>
-												<TableCell>
-													<Button
-														key={row.id}
-														onClick={() =>
-															deleteRestaurante(
-																row.id
-															)
-														}>
-														<DeleteIcon>
-															edit
-														</DeleteIcon>{' '}
-														Excluir
-													</Button>
-												</TableCell>
-											</TableRow>
-										))}
-									</TableBody>
-								</Table>
-							</TableContainer>
-						</Box>
-					</Paper>
-				</Container>
-			</Box>
-		</>
+										<DeleteIcon>edit</DeleteIcon> Excluir
+									</Button>
+								</TableCell>
+							</TableRow>
+						))}
+					</TableBody>
+				</Table>
+			</TableContainer>
+		</Box>
 	)
 }
 

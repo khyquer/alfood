@@ -1,13 +1,8 @@
 import {
-	AppBar,
-	Paper,
 	Box,
-	Link,
 	Button,
 	TextField,
 	Typography,
-	Container,
-	Toolbar,
 } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -60,62 +55,36 @@ const AdministracaoNovo = () => {
 	}
 
 	return (
-		<>
-			<AppBar position='static'>
-				<Container maxWidth='xl'>
-					<Toolbar>
-						<Typography>Administração</Typography>
-						<Box>
-							<Link>
-								<Button></Button>
-							</Link>
-							<Link>
-								<Button sx={{my: 2, color: 'white'}}></Button>
-							</Link>
-						</Box>
-					</Toolbar>
-				</Container>
-			</AppBar>
-			<Box>
-				<Container maxWidth='lg' sx={{mt: 1}}>
-					<Paper>
-						<Box
-							sx={{
-								display: 'flex',
-								flexDirection: 'column',
-								alignItems: 'center',
-							}}>
-							<Typography component='h2'>Restaurante</Typography>
-							<Box component='form' onSubmit={aoSubmeterForm}>
-								<TextField
-									id='standard-basic'
-									label='Nome do Restaurante'
-									variant='standard'
-									value={nomeRestaurante}
-									onChange={(evento) =>
-										setNomeRestaurante(evento.target.value)
-									}
-									fullWidth
-								/>
-								<Button
-									sx={{ marginTop: '20px' }}
-									type='submit'
-									variant='contained'
-									fullWidth>
-									Salvar
-								</Button>
-								<Button
-									onClick={() =>
-										navigate('/admin/restaurantes')
-									}>
-									Voltar
-								</Button>
-							</Box>
-						</Box>
-					</Paper>
-				</Container>
+		<Box
+			sx={{
+				display: 'flex',
+				flexDirection: 'column',
+				alignItems: 'center',
+			}}>
+			<Typography component='h2'>Restaurante</Typography>
+			<Box component='form' onSubmit={aoSubmeterForm}>
+				<TextField
+					id='standard-basic'
+					label='Nome do Restaurante'
+					variant='standard'
+					value={nomeRestaurante}
+					onChange={(evento) =>
+						setNomeRestaurante(evento.target.value)
+					}
+					fullWidth
+				/>
+				<Button
+					sx={{ marginTop: '20px' }}
+					type='submit'
+					variant='contained'
+					fullWidth>
+					Salvar
+				</Button>
+				<Button onClick={() => navigate('/admin/restaurantes')}>
+					Voltar
+				</Button>
 			</Box>
-		</>
+		</Box>
 	)
 }
 
